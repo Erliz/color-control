@@ -1,0 +1,20 @@
+{
+  "name": "color-control",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bluebird": "^3.4.1",
+    "color-thief": "^2.2.2",
+    "dominant-color": "0.0.1",
+    "googleapis": "^9.0.0",
+    "serialport": "4.0.0-rc1",
+    "speakable": "https://github.com/joestrong/node-speakable/tarball/develop"
+  }
+}
