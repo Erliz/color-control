@@ -47,12 +47,7 @@ const findColor = (words) => {
     }));
 };
 
-
-recorder.startRecord((words) => {
-    words = words.map((word) => {
-        return word.toLowerCase();
-    });
-
+global.showColorByWords = function (words) {
     console.log('FINDED WORDS', words);
     storage.getWordsFilter().then((filters) => {
         return words.reduce((_, word) => {
@@ -69,36 +64,28 @@ recorder.startRecord((words) => {
             }).catch(err => console.log('ERROR', err));
         }
     }).catch(err => console.log('ERROR', err))
-});
-//storage.pushColor([255,0,0]);
+};
 
-//converter.convert(testFile2)
-//    .then((res) => {
-//        console.log('WORDS', res);
-//        return searcher.find(res);
-//    }).then((res) => {
-//        console.log('IMAGES', res);
-//    }).catch((err) => {
-//        console.log(err);
+
+//recorder.startRecord((words) => {
+//    words = words.map((word) => {
+//        return word.toLowerCase();
 //    });
-
-//colorizer.getColor(['http://blacksea-education.ru/faq/image/021_06.jpg']).then((res) => {
-//    console.log(res);
+//
+//    console.log('FINDED WORDS', words);
+//    storage.getWordsFilter().then((filters) => {
+//        return words.reduce((_, word) => {
+//            if (filters.indexOf(word) > -1) {
+//                _.push(word);
+//            }
+//            return _
+//        }, [])
+//    }).then(words => {
+//        console.log('FILTERED COLORS', words);
+//        if (words.length) {
+//            findColor(words).then(colors => {
+//                colors.forEach(storage.pushColor.bind(storage));
+//            }).catch(err => console.log('ERROR', err));
+//        }
+//    }).catch(err => console.log('ERROR', err))
 //});
-
-//morpher.morph('Синий лес').then((res) => {
-//    console.log(res);
-//});
-
-
-//[ 'и', 'Пошли', 'они', 'в', 'сторону', 'шлюпок', 'к', 'морю' ]
-
-/**
-[   'http://www.voloskova.ru/uploads/posts/2012-03/1332869865_2.jpg',
-    'http://img0.liveinternet.ru/images/attach/c/2//67/265/67265256_i.gif',
-    'https://upload.wikimedia.org/wikipedia/ru/c/cc/%D0%92%D0%BE%D0%B8%D0%BD%D1%8B_%D0%A2%D1%91%D0%BC%D0%BD%D1%8B%D1%85_%D0%AD%D0%BB%D1%8C%D0%B4%D0%B0%D1%80.jpg',
-    'http://www.explorebyyourself.com/images/cms/data/amazon-jungle.jpeg',
-    'http://online-azbuka.ru/image/bukvav.jpg',
-    'http://www.fresher.ru/manager_content/images/xleb-i-krov-na-obochine-transsiba/17.jpg',
-    'http://www.animalsglobe.ru/wp-content/uploads/2011/10/%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D1%8C.jpg' ]
- **/
