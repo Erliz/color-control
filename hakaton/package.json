@@ -1,0 +1,20 @@
+{
+  "name": "hackaton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "color-thief": "^2.2.2",
+    "google-speech": "0.0.5",
+    "googleapis": "^12.0.0",
+    "mqtt": "^1.13.0",
+    "speakable": "https://github.com/joestrong/node-speakable/tarball/develop",
+    "tarantool-driver": "^2.0.1",
+    "xml2json": "^0.9.1"
+  }
+}
