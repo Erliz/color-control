@@ -10,45 +10,15 @@ box.cfg{
   slab_alloc_arena = 0.5;
   listen = 3301;
 }
- -- box.schema.user.grant('guest', 'read,write,execute', 'universe')
-function inArray(needle, array)
-  local valid = {}
-  for i = 1, #array do
-   valid[array[i]] = true
-  end
-  if valid[needle] then
-   return false
-  else
-   return true
-  end
-end
-
-function getColors()
-  return {{colors:select{}}}
-end
-
-function addColors(words, colorsList)
-  for _, wordValue in pairs(words) do
-    local existValues = colors:get{wordValue}
-    print(yaml.encode(existValues))
-    for _, colorValue in pairs(colorsList) do
-
-      if inArray(colorValue, existValues) then
-        colors:update{wordValue, {colorValue}}
-      else
-        colors:insert{wordValue, {colorValue}}
-      end
-    end
-  end
-end
+-- box.schema.user.grant('guest', 'read,write,execute', 'universe')
 --
 -- Create space & index
 --
 colors = box.schema.space.create('colors', {if_not_exists = true})
-
--- SQL Analogue:
--- CREATE INDEX pk ON tester(first_col)
 colors:create_index('pk', {parts={1, 'STR'}, if_not_exists = true})
+
+word_filters = box.schema.space.create('word_filters', {if_not_exists = true})
+word_filters:create_index('pk', {parts={1, 'STR'}, if_not_exists = true})
 
 -- SQL Analogue:
 -- CREATE INDEX pk ON tester(second_col)
@@ -74,6 +44,9 @@ colors:create_index('pk', {parts={1, 'STR'}, if_not_exists = true})
 if box.space.colors:len() == 0 then
   require('./colors-db')
 end
+if box.space.word_filters:len() == 0 then
+  require('./wordFilters-db')
+end
 
-print(box.space.colors:len())
 print(yaml.encode(colors:select{}))
+print(yaml.encode(word_filters:select{}))

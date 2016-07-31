@@ -15,7 +15,6 @@ const getColors = word => {
 
 const addColors = (words, colors) => {
   return Promise.all(words.map(word => {
-    console.log(word);
     return getColors(word)
       .then(existColors => {
         existColors = existColors || [];
@@ -33,7 +32,16 @@ const addColors = (words, colors) => {
   }));
 }
 
+const getWordsFilter = () => connected.then(() => conn.select('word_filters', 'pk', 1, 0, 'all', []));
+const addWordsFilter = (word) => connected.then(() => conn.insert('word_filters', [word]));
+
+addWordsFilter('курлык')
+  .then(() => console.log('then'))
+  .then(() => getWordsFilter(response => console.log(response)))
+  .catch((err) => console.log(err));
+
 module.exports = {
   getColors,
   addColors,
+  getWordsFilter,
 };
