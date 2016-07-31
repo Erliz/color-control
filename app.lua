@@ -99,7 +99,8 @@ rgbLed = {
 
   migrate = function(self, red, green, blue, time)
     if(self.busy == true) then
-      return
+      fiber.sleep(1)
+      return self:migrate(red,green,blue,time)
     end
     self.busy = true
     local toRed = red
