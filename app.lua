@@ -10,7 +10,9 @@ box.cfg{
   slab_alloc_arena = 0.5;
   listen = 3301;
 }
--- box.schema.user.grant('guest', 'read,write,execute', 'universe')
+box.once('guest_grant', function()
+  box.schema.user.grant('guest', 'read,write,execute', 'universe')
+end)
 --
 -- Create space & index
 --
