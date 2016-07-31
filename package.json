@@ -14,6 +14,7 @@
     "color-thief": "^2.2.2",
     "dominant-color": "0.0.1",
     "googleapis": "^9.0.0",
+    "mqtt": "^1.13.0",
     "serialport": "4.0.0-rc1",
     "speakable": "https://github.com/joestrong/node-speakable/tarball/develop",
     "tarantool-driver": "^2.0.1"
