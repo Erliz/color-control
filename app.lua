@@ -178,9 +178,9 @@ rgbLed = {
 
   init_once = function(self)
     if not self.initialised then
-      self.red_light:period_us(1)
-      self.green_light:period_us(1)
-      self.blue_light:period_us(1)
+      self.red_light:period_us(200)
+      self.green_light:period_us(200)
+      self.blue_light:period_us(200)
 
       self.red_light:enable(true)
       self.green_light:enable(true)
