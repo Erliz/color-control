@@ -1,13 +1,28 @@
-var TarantoolConnection = require('tarantool-driver');
-const DEFAULT_OPTIONS = {
+const TarantoolConnection = require('tarantool-driver');
+const mqtt = require('mqtt');
+const DEFAULT_STORAGE_OPTIONS = {
     host:'127.0.0.1',
     port: 3301
 };
 
+const DEFAULT_MQTT_OPTIONS = {
+    host: '127.0.0.1',
+    port: '1883'
+};
+
 class AppStorage {
-    constructor(options) {
-        this.conn = new TarantoolConnection(Object.assign({}, DEFAULT_OPTIONS, options));
+    constructor(storageOptions, mqttOptions) {
+        storageOptions = Object.assign({}, DEFAULT_STORAGE_OPTIONS, storageOptions);
+        mqttOptions = Object.assign({}, DEFAULT_MQTT_OPTIONS, mqttOptions);
+        this.conn = new TarantoolConnection(storageOptions);
         this.connected = this.conn.connect();
+        this.mqttClient = mqtt.connect(['mqtt://', mqttOptions.host + ':' + mqttOptions.port].join(''));
+    }
+
+    pushColor(color) {
+        if (color && Array.isArray(color) && color.length === 3) {
+            this.mqttClient.publish('devices/rgbLed/set', color.join(' '));
+        }
     }
 
     getWordsFilter() {
@@ -50,7 +65,3 @@ class AppStorage {
 }
 
 module.exports = AppStorage;
-
-var s = new AppStorage();
-
-s.getWordsFilter().then(res => console.log(res));
