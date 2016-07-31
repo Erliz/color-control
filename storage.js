@@ -26,7 +26,15 @@ class AppStorage {
     }
 
     getWordsFilter() {
-        return this.connected.then(() => this.conn.select('word_filters', 'pk', 1, 0, 'all', []))
+        return this.connected.then(() => {
+            return this.conn.select('word_filters', 'pk', 10000, 0, 'all', [])
+                .then(filterResult => {
+                    return this.conn.select('colors', 'pk', 10000, 0, 'all', [])
+                        .then(colorsResult => {
+                            return filterResult.map(el => el[0]).concat(colorsResult.map(el => el[0]));
+                        });
+                });
+        });
     }
 
     addWordsFilter(word) {
